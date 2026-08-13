@@ -12,3 +12,7 @@ replit.nix
 .quartz/
 quartz/cli/tui/dist/
 .turbo/
+
+# Local-only preview and copied source material
+.env*
+content-private/
