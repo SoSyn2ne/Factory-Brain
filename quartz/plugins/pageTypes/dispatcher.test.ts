@@ -1,8 +1,15 @@
 import test, { describe } from "node:test"
 import assert from "node:assert"
-import { collectComponents, resolveLayout } from "./dispatcher"
+import { collectComponents, normalizeGenericIndexTitles, resolveLayout } from "./dispatcher"
 import { QuartzPageTypePluginInstance } from "../types"
 import { QuartzComponent } from "../../components/types"
+import { defaultProcessedContent } from "../vfile"
+import { isFullSlug } from "../../util/path"
+
+function fullSlug(value: string) {
+  assert.ok(isFullSlug(value))
+  return value
+}
 
 const StubA: QuartzComponent = (() => null) as unknown as QuartzComponent
 const StubB: QuartzComponent = (() => null) as unknown as QuartzComponent
@@ -140,5 +147,44 @@ describe("collectComponents", () => {
 
     const result = collectComponents(pageTypes, sharedDefaults, byPageType)
     assert.ok(result.every((component) => component))
+  })
+})
+
+describe("normalizeGenericIndexTitles", () => {
+  test("normalizes case-insensitive folder index titles only", () => {
+    const uppercase = defaultProcessedContent({
+      slug: fullSlug("10-projects/emberpix/index"),
+      frontmatter: { title: "INDEX", tags: [] },
+    })
+    const mixedCase = defaultProcessedContent({
+      slug: fullSlug("10-projects/mom-voice/index"),
+      frontmatter: { title: "Index", tags: [] },
+    })
+    const meaningful = defaultProcessedContent({
+      slug: fullSlug("10-projects/ops/index"),
+      frontmatter: { title: "Operations", tags: [] },
+    })
+    const rootIndex = defaultProcessedContent({
+      slug: fullSlug("index"),
+      frontmatter: { title: "INDEX", tags: [] },
+    })
+    const content = [uppercase, mixedCase, meaningful, rootIndex]
+
+    normalizeGenericIndexTitles(content)
+
+    assert.strictEqual(uppercase[1].data.frontmatter?.title, "index")
+    assert.strictEqual(mixedCase[1].data.frontmatter?.title, "index")
+    assert.strictEqual(meaningful[1].data.frontmatter?.title, "Operations")
+    assert.strictEqual(rootIndex[1].data.frontmatter?.title, "INDEX")
+  })
+
+  test("leaves missing frontmatter and missing slugs untouched", () => {
+    const noFrontmatter = defaultProcessedContent({ slug: fullSlug("10-projects/ops/index") })
+    const noSlug = defaultProcessedContent({ frontmatter: { title: "INDEX" } })
+
+    normalizeGenericIndexTitles([noFrontmatter, noSlug])
+
+    assert.strictEqual(noFrontmatter[1].data.frontmatter, undefined)
+    assert.strictEqual(noSlug[1].data.frontmatter?.title, "INDEX")
   })
 })

@@ -1,6 +1,7 @@
 ---
 title: Factory Brain
 description: A public map of the projects, experiments, and systems built by Dragon.
+factory_brain_scope: public-content
 ---
 
 # Factory Brain
@@ -21,4 +22,3 @@ description: A public map of the projects, experiments, and systems built by Dra
 - 실제 사용 장면이 있는 프로젝트를 우선한다.
 - 예쁜 화면보다 사용·공유·수익 검증을 먼저 본다.
 - 실험은 작게 만들고, 반응이 없으면 빠르게 보류한다.
-

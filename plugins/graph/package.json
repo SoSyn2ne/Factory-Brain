@@ -1,0 +1,30 @@
+{
+  "name": "factory-brain-graph",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Factory Brain graph component with project-name hover labels.",
+  "exports": {
+    ".": "./src/index.js",
+    "./components": "./src/components/index.js"
+  },
+  "main": "./src/index.js",
+  "quartz": {
+    "name": "graph",
+    "displayName": "Graph",
+    "description": "Interactive graph visualization with project-name hover labels.",
+    "category": "component",
+    "version": "1.0.0",
+    "quartzVersion": ">=5.0.0",
+    "defaultOrder": 50,
+    "defaultEnabled": true,
+    "components": {
+      "Graph": {
+        "displayName": "Graph",
+        "description": "Interactive local and global graph.",
+        "defaultPosition": "right",
+        "defaultPriority": 10
+      }
+    }
+  }
+}

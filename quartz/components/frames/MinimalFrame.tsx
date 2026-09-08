@@ -13,9 +13,9 @@ export const MinimalFrame: PageFrame = {
   render({ componentData, pageBody: Content, footer }: PageFrameProps) {
     return (
       <>
-        <div class="center minimal">
+        <main id="quartz-main" class="center minimal" tabIndex={-1}>
           <Content {...componentData} />
-        </div>
+        </main>
         {footer.map((FooterComponent) => (
           <FooterComponent {...componentData} />
         ))}

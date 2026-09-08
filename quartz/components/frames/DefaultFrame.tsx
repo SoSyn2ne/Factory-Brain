@@ -1,5 +1,7 @@
 import { PageFrame, PageFrameProps } from "./types"
 import HeaderConstructor from "../Header"
+import { ProjectNavigator } from "../ProjectNavigator"
+import { FactoryBrainDashboard } from "../FactoryBrainDashboard"
 
 const Header = HeaderConstructor()
 
@@ -28,7 +30,7 @@ export const DefaultFrame: PageFrame = {
             <BodyComponent {...componentData} />
           ))}
         </div>
-        <div class="center">
+        <main id="quartz-main" class="center" tabIndex={-1}>
           <div class="page-header">
             <Header {...componentData}>
               {header.map((HeaderComponent) => (
@@ -41,14 +43,16 @@ export const DefaultFrame: PageFrame = {
               ))}
             </div>
           </div>
+          <FactoryBrainDashboard {...componentData} />
           <Content {...componentData} />
+          <ProjectNavigator {...componentData} />
           <hr />
           <div class="page-footer">
             {afterBody.map((BodyComponent) => (
               <BodyComponent {...componentData} />
             ))}
           </div>
-        </div>
+        </main>
         <div class="right sidebar">
           {right.map((BodyComponent) => (
             <BodyComponent {...componentData} />

@@ -68,6 +68,29 @@ interface DispatcherOptions {
   byPageType: Record<string, Partial<FullPageLayout>>
 }
 
+/**
+ * FolderPage treats a lowercase `index` title as generic and replaces it with
+ * the folder display name. Obsidian vaults commonly use an uppercase INDEX.md,
+ * so normalize only folder-index titles before page types generate their data.
+ * This keeps ArticleTitle, breadcrumbs, Explorer, search, and the graph aligned.
+ */
+export function normalizeGenericIndexTitles(content: ProcessedContent[]): void {
+  for (const [, file] of content) {
+    const slug = file.data.slug
+    const frontmatter = file.data.frontmatter
+    const title = frontmatter?.title
+
+    if (
+      frontmatter &&
+      slug?.endsWith("/index") &&
+      typeof title === "string" &&
+      /^index$/i.test(title)
+    ) {
+      frontmatter.title = "index"
+    }
+  }
+}
+
 async function emitPage(
   ctx: BuildCtx,
   slug: FullSlug,
@@ -160,6 +183,7 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
       return collectComponents(pageTypes, defaults, byPageType)
     },
     async *emit(ctx, content, resources) {
+      normalizeGenericIndexTitles(content)
       const pageTypes = [...getPageTypes(ctx)].sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0))
       const cfg = ctx.cfg.configuration
       const allFiles = content.map((c) => c[1].data)
@@ -247,6 +271,7 @@ export const PageTypeDispatcher: QuartzEmitterPlugin<Partial<DispatcherOptions>>
       }
     },
     async *partialEmit(ctx, content, resources, changeEvents) {
+      normalizeGenericIndexTitles(content)
       const pageTypes = [...getPageTypes(ctx)].sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0))
       const cfg = ctx.cfg.configuration
       const allFiles = content.map((c) => c[1].data)

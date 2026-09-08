@@ -167,7 +167,8 @@ plugins:
     layout:
       position: left
       priority: 50
-  - source: "@quartz-community/graph"
+  # Local fork: keeps Quartz graph behavior and adds project-name hover tooltips.
+  - source: "./plugins/graph"
     enabled: true
     layout:
       position: right
