@@ -596,6 +596,8 @@ export function graphBrowser(createHelpers) {
       const global = graph.querySelector(".global-graph-container")
       const trigger = graph.querySelector(".global-graph-icon")
       if (!local || !overlay || !global || !trigger) continue
+      const overlayParent = overlay.parentElement
+      const overlayNextSibling = overlay.nextSibling
       cleanups.push(
         renderGraph(local, model, currentId, JSON.parse(local.dataset.cfg || "{}"), false),
       )
@@ -604,17 +606,30 @@ export function graphBrowser(createHelpers) {
       const close = () => {
         if (!overlay.classList.contains("active")) return
         overlay.classList.remove("active")
+        overlay.classList.remove("graph")
+        overlay.removeAttribute("data-factory-brain-portal")
         overlay.setAttribute("aria-hidden", "true")
         trigger.setAttribute("aria-expanded", "false")
         document.body.style.overflow = previousOverflow
         disposeGlobal?.()
         disposeGlobal = null
+        if (overlayParent && overlay.parentElement === document.body) {
+          overlayParent.insertBefore(
+            overlay,
+            overlayNextSibling && overlayNextSibling.parentNode === overlayParent
+              ? overlayNextSibling
+              : null,
+          )
+        }
         trigger.focus()
       }
       const open = () => {
         if (overlay.classList.contains("active")) return
         previousOverflow = document.body.style.overflow
         document.body.style.overflow = "hidden"
+        document.body.appendChild(overlay)
+        overlay.classList.add("graph")
+        overlay.setAttribute("data-factory-brain-portal", "true")
         overlay.classList.add("active")
         overlay.setAttribute("aria-hidden", "false")
         trigger.setAttribute("aria-expanded", "true")

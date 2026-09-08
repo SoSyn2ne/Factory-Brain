@@ -702,7 +702,7 @@ tr {
   text-transform: uppercase;
 }
 
-#quartz-body .graph > .graph-outer {
+.graph > .graph-outer {
   height: 17.5rem;
   margin-top: 0.625rem;
   border-color: var(--fb-border);
@@ -711,7 +711,7 @@ tr {
   box-shadow: var(--fb-shadow-sm);
 }
 
-#quartz-body .graph > .graph-outer > .global-graph-icon {
+.graph > .graph-outer > .global-graph-icon {
   display: flex;
   width: auto;
   min-width: 2.5rem;
@@ -735,7 +735,7 @@ tr {
     background-color 120ms ease;
 }
 
-#quartz-body .graph > .graph-outer > .global-graph-icon::after {
+.graph > .graph-outer > .global-graph-icon::after {
   color: inherit;
   content: "Global Graph";
   font-family: var(--bodyFont);
@@ -744,20 +744,86 @@ tr {
   white-space: nowrap;
 }
 
-#quartz-body .graph > .graph-outer > .global-graph-icon svg {
+.graph > .graph-outer > .global-graph-icon svg {
   width: 0.9rem;
   height: 0.9rem;
   flex: 0 0 0.9rem;
 }
 
-#quartz-body .graph > .graph-outer > .global-graph-icon:hover,
-#quartz-body .graph > .graph-outer > .global-graph-icon:focus-visible {
+.graph > .graph-outer > .global-graph-icon:hover,
+.graph > .graph-outer > .global-graph-icon:focus-visible {
   border-color: var(--fb-accent);
   background: var(--fb-accent-soft);
   color: var(--fb-accent);
 }
 
-#quartz-body .graph > .global-graph-outer {
+.global-graph-outer[data-factory-brain-portal] {
+  position: fixed !important;
+  z-index: 9999;
+  inset: 0 !important;
+  display: block;
+  width: 100vw !important;
+  height: 100dvh !important;
+  margin: 0;
+  overflow: hidden;
+  background: rgb(15 22 19 / 64%);
+  backdrop-filter: blur(2px);
+  overscroll-behavior: contain;
+}
+
+.global-graph-outer[data-factory-brain-portal] > .global-graph-dialog-header,
+.global-graph-outer[data-factory-brain-portal] > .global-graph-container {
+  position: fixed !important;
+  left: 50vw !important;
+  width: min(86vw, 87.5rem) !important;
+  max-width: calc(100vw - 2rem);
+  margin: 0;
+  transform: translateX(-50%);
+}
+
+.global-graph-outer[data-factory-brain-portal] > .global-graph-dialog-header {
+  top: 8dvh;
+}
+
+.global-graph-outer[data-factory-brain-portal] > .global-graph-container {
+  top: calc(8dvh + 3.25rem);
+  height: calc(84dvh - 3.25rem);
+}
+
+.global-graph-outer[data-factory-brain-portal] > .global-graph-dialog-header {
+  z-index: 1;
+  display: grid;
+  min-height: 3.25rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  box-sizing: border-box;
+  padding: 0 0.75rem 0 1rem;
+  border: 1px solid var(--fb-border);
+  border-bottom: 0;
+  border-radius: var(--fb-radius-sm) var(--fb-radius-sm) 0 0;
+  background: var(--fb-surface-raised);
+  color: var(--dark);
+  box-shadow: var(--fb-shadow-md);
+}
+
+.global-graph-outer[data-factory-brain-portal] > .global-graph-container {
+  box-sizing: border-box;
+  border: 1px solid var(--fb-border);
+  border-radius: 0 0 var(--fb-radius-sm) var(--fb-radius-sm);
+  background: var(--fb-surface-raised);
+  box-shadow: var(--fb-shadow-md);
+  overflow: hidden;
+}
+
+@media (max-width: 800px) {
+  .global-graph-outer[data-factory-brain-portal]
+    > :is(.global-graph-dialog-header, .global-graph-container) {
+    width: calc(100vw - 1rem) !important;
+  }
+}
+
+.graph > .global-graph-outer {
   width: 100%;
   height: 100dvh;
   background: rgb(15 22 19 / 64%);
@@ -765,15 +831,15 @@ tr {
   overscroll-behavior: contain;
 }
 
-#quartz-body .graph > .global-graph-outer > .global-graph-dialog-header,
-#quartz-body .graph > .global-graph-outer > .global-graph-container {
+.graph > .global-graph-outer > .global-graph-dialog-header,
+.graph > .global-graph-outer > .global-graph-container {
   position: fixed;
   left: 50%;
   width: min(86vw, 87.5rem);
   transform: translateX(-50%);
 }
 
-#quartz-body .graph > .global-graph-outer > .global-graph-dialog-header {
+.graph > .global-graph-outer > .global-graph-dialog-header {
   z-index: 1;
   top: 8dvh;
   display: grid;
@@ -823,7 +889,7 @@ tr {
   color: var(--dark);
 }
 
-#quartz-body .graph > .global-graph-outer > .global-graph-container {
+.graph > .global-graph-outer > .global-graph-container {
   top: calc(8dvh + 3.25rem);
   height: calc(84dvh - 3.25rem);
   border-color: var(--fb-border);
@@ -833,14 +899,14 @@ tr {
   overflow: hidden;
 }
 
-#quartz-body .graph :is(.graph-container, .global-graph-container) {
+.graph :is(.graph-container, .global-graph-container) {
   display: flex;
   min-width: 0;
   min-height: 0;
   flex-direction: column;
 }
 
-#quartz-body .graph .graph-stage {
+.graph .graph-stage {
   position: relative;
   min-width: 0;
   min-height: 0;
@@ -848,7 +914,7 @@ tr {
   overflow: hidden;
 }
 
-#quartz-body .graph .factory-graph-svg {
+.graph .factory-graph-svg {
   display: block;
   width: 100%;
   height: 100%;
@@ -856,7 +922,7 @@ tr {
   background: var(--fb-surface-raised);
 }
 
-#quartz-body .graph .graph-controls {
+.graph .graph-controls {
   display: grid;
   grid-template-columns: minmax(12rem, 1.8fr) repeat(3, minmax(7rem, 1fr));
   gap: 0.5rem;
@@ -865,8 +931,8 @@ tr {
   background: var(--fb-surface);
 }
 
-#quartz-body .graph .graph-controls label,
-#quartz-body .graph .graph-search {
+.graph .graph-controls label,
+.graph .graph-search {
   display: grid;
   min-width: 0;
   gap: 0.25rem;
@@ -877,8 +943,8 @@ tr {
   text-transform: uppercase;
 }
 
-#quartz-body .graph .graph-controls input,
-#quartz-body .graph .graph-controls select {
+.graph .graph-controls input,
+.graph .graph-controls select {
   width: 100%;
   min-width: 0;
   min-height: 2.25rem;
@@ -892,15 +958,15 @@ tr {
   font-size: 0.78rem;
 }
 
-#quartz-body .graph .graph-controls input:focus-visible,
-#quartz-body .graph .graph-controls select:focus-visible,
-#quartz-body .graph .graph-actions button:focus-visible,
-#quartz-body .graph .factory-graph-svg:focus-visible {
+.graph .graph-controls input:focus-visible,
+.graph .graph-controls select:focus-visible,
+.graph .graph-actions button:focus-visible,
+.graph .factory-graph-svg:focus-visible {
   outline: 2px solid var(--fb-focus);
   outline-offset: 2px;
 }
 
-#quartz-body .graph .graph-toolbar {
+.graph .graph-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -910,13 +976,13 @@ tr {
   background: var(--fb-surface);
 }
 
-#quartz-body .graph .graph-actions {
+.graph .graph-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
 }
 
-#quartz-body .graph .graph-actions button {
+.graph .graph-actions button {
   min-width: 2.25rem;
   min-height: 2.25rem;
   padding: 0.35rem 0.55rem;
@@ -930,14 +996,14 @@ tr {
   font-weight: 700;
 }
 
-#quartz-body .graph .graph-actions button:hover,
-#quartz-body .graph .graph-actions button:focus-visible {
+.graph .graph-actions button:hover,
+.graph .graph-actions button:focus-visible {
   border-color: var(--fb-accent);
   background: var(--fb-accent-soft);
   color: var(--fb-accent);
 }
 
-#quartz-body .graph .graph-legend {
+.graph .graph-legend {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
@@ -945,13 +1011,13 @@ tr {
   font-size: 0.72rem;
 }
 
-#quartz-body .graph .graph-legend > span {
+.graph .graph-legend > span {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
 }
 
-#quartz-body .graph .graph-legend i {
+.graph .graph-legend i {
   display: inline-block;
   width: 0.65rem;
   height: 0.65rem;
@@ -960,68 +1026,68 @@ tr {
   background: var(--fb-surface-raised);
 }
 
-#quartz-body .graph .graph-legend i[data-kind="project"] {
+.graph .graph-legend i[data-kind="project"] {
   border-radius: 0.12rem;
   background: var(--fb-accent-soft);
 }
 
-#quartz-body .graph .graph-legend i[data-kind="reference"] {
+.graph .graph-legend i[data-kind="reference"] {
   transform: rotate(45deg) scale(0.8);
 }
 
-#quartz-body .graph .graph-edge {
+.graph .graph-edge {
   stroke: var(--fb-border);
   stroke-width: 1.5;
   opacity: 0.75;
 }
 
-#quartz-body .graph .graph-edge[data-highlighted="true"] {
+.graph .graph-edge[data-highlighted="true"] {
   stroke: var(--fb-accent);
   stroke-width: 2.5;
   opacity: 1;
 }
 
-#quartz-body .graph .graph-edge[data-dimmed="true"] {
+.graph .graph-edge[data-dimmed="true"] {
   opacity: 0.12;
 }
 
-#quartz-body .graph .graph-node {
+.graph .graph-node {
   color: var(--dark);
   cursor: pointer;
   text-decoration: none;
 }
 
-#quartz-body .graph .graph-node-shape {
+.graph .graph-node-shape {
   fill: var(--fb-surface-raised);
   stroke: var(--fb-accent);
   stroke-width: 1.75;
 }
 
-#quartz-body .graph .graph-node[data-kind="project"] .graph-node-shape {
+.graph .graph-node[data-kind="project"] .graph-node-shape {
   fill: var(--fb-accent-soft);
   stroke-width: 2.5;
 }
 
-#quartz-body .graph .graph-node[data-kind="reference"] .graph-node-shape {
+.graph .graph-node[data-kind="reference"] .graph-node-shape {
   fill: var(--fb-surface);
   stroke: var(--fb-text-muted);
 }
 
-#quartz-body .graph .graph-node[data-current="true"] .graph-node-shape {
+.graph .graph-node[data-current="true"] .graph-node-shape {
   fill: var(--fb-accent);
   stroke: var(--fb-accent);
 }
 
-#quartz-body .graph .graph-node[data-dimmed="true"] {
+.graph .graph-node[data-dimmed="true"] {
   opacity: 0.16;
 }
 
-#quartz-body .graph .graph-hit-target {
+.graph .graph-hit-target {
   fill: transparent;
   pointer-events: all;
 }
 
-#quartz-body .graph .graph-node-label {
+.graph .graph-node-label {
   fill: var(--dark);
   font-family: var(--bodyFont);
   font-weight: 650;
@@ -1031,7 +1097,7 @@ tr {
   stroke-width: 3px;
 }
 
-#quartz-body .graph .graph-footer {
+.graph .graph-footer {
   display: flex;
   justify-content: space-between;
   gap: 0.75rem;
@@ -1041,33 +1107,33 @@ tr {
   font-size: 0.72rem;
 }
 
-#quartz-body .graph .graph-result-count {
+.graph .graph-result-count {
   color: var(--darkgray);
   font-variant-numeric: tabular-nums;
   font-weight: 700;
 }
 
-#quartz-body .graph .graph-empty {
+.graph .graph-empty {
   margin: auto;
   color: var(--fb-text-muted);
   font-size: 0.85rem;
 }
 
 @media (max-width: 800px) {
-  #quartz-body .graph .graph-controls {
+  .graph .graph-controls {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  #quartz-body .graph .graph-search {
+  .graph .graph-search {
     grid-column: 1 / -1;
   }
 
-  #quartz-body .graph .graph-toolbar {
+  .graph .graph-toolbar {
     align-items: flex-start;
     flex-direction: column;
   }
 
-  #quartz-body .graph .graph-footer {
+  .graph .graph-footer {
     flex-wrap: wrap;
   }
 }
@@ -1415,24 +1481,24 @@ footer a {
     flex: none;
   }
 
-  #quartz-body .graph > .graph-outer {
+  .graph > .graph-outer {
     height: 18rem;
   }
 
-  #quartz-body .graph > .graph-outer > .global-graph-icon {
+  .graph > .graph-outer > .global-graph-icon {
     min-height: 2.75rem;
   }
 
-  #quartz-body .graph > .global-graph-outer > .global-graph-dialog-header,
-  #quartz-body .graph > .global-graph-outer > .global-graph-container {
+  .graph > .global-graph-outer > .global-graph-dialog-header,
+  .graph > .global-graph-outer > .global-graph-container {
     width: calc(100% - 2rem);
   }
 
-  #quartz-body .graph > .global-graph-outer > .global-graph-dialog-header {
+  .graph > .global-graph-outer > .global-graph-dialog-header {
     top: max(1rem, env(safe-area-inset-top));
   }
 
-  #quartz-body .graph > .global-graph-outer > .global-graph-container {
+  .graph > .global-graph-outer > .global-graph-container {
     top: calc(max(1rem, env(safe-area-inset-top)) + 3.25rem);
     height: calc(
       100dvh - max(2rem, env(safe-area-inset-top) + env(safe-area-inset-bottom)) - 3.25rem
