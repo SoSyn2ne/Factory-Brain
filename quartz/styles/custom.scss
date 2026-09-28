@@ -1536,6 +1536,71 @@ footer a {
   }
 }
 
+.project-galaxy-source {
+  display: none !important;
+}
+
+.global-graph-outer.project-galaxy-outer[data-factory-brain-portal] {
+  background:
+    radial-gradient(circle at 50% 42%, rgb(68 117 101 / 16%), transparent 34rem), rgb(8 15 13 / 80%);
+}
+
+.global-graph-outer.project-galaxy-outer[data-factory-brain-portal]::before {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 16% 22%, rgb(228 244 231 / 68%) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 73% 18%, rgb(228 244 231 / 52%) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 84% 76%, rgb(228 244 231 / 48%) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 28% 82%, rgb(228 244 231 / 42%) 0 1px, transparent 1.5px);
+  background-size:
+    19rem 17rem,
+    23rem 21rem,
+    29rem 25rem,
+    31rem 27rem;
+  content: "";
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.global-graph-outer.project-galaxy-outer[data-factory-brain-portal] > .global-graph-container {
+  background:
+    radial-gradient(circle at 50% 45%, rgb(71 130 109 / 12%), transparent 45%),
+    linear-gradient(135deg, rgb(17 29 24 / 98%), rgb(10 18 15 / 98%));
+}
+
+.project-galaxy-outer .factory-graph-svg {
+  background: transparent;
+}
+
+.project-galaxy-outer .graph-edge {
+  stroke: rgb(142 196 169 / 62%);
+  stroke-width: 1.8;
+}
+
+.project-galaxy-outer .graph-edge[data-highlighted="true"] {
+  stroke: #a9edc6;
+  filter: drop-shadow(0 0 4px rgb(125 224 166 / 70%));
+}
+
+.project-galaxy-outer .graph-node-shape {
+  fill: rgb(20 40 31 / 94%);
+  stroke: #8ad7a6;
+  filter: drop-shadow(0 0 6px rgb(101 215 150 / 28%));
+}
+
+.project-galaxy-outer .graph-node[data-kind="project"] .graph-node-shape {
+  fill: rgb(51 105 76 / 96%);
+  stroke: #c5f6d2;
+  filter: drop-shadow(0 0 10px rgb(114 234 158 / 52%));
+}
+
+.project-galaxy-outer .graph-node-label {
+  fill: #ecfff2;
+  stroke: rgb(10 18 15 / 92%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

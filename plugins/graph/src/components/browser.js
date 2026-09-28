@@ -81,6 +81,16 @@ export function graphBrowser(createHelpers) {
       cleanups.push(() => target.removeEventListener(event, fn, opts))
     }
     container.replaceChildren()
+    // The private home embeds the full document graph and a smaller project-only
+    // projection. Global Graph becomes the cinematic Project Galaxy in that
+    // scope; local graphs keep the document-level context.
+    const graphModel =
+      isGlobal && model.projectGalaxy
+        ? {
+            ...model.projectGalaxy,
+            scope: model.scope === "private-full" ? "private-projects" : "project-content",
+          }
+        : model
     container.dataset.uiPass = "factory-brain-graph-dashboard"
     const filters = { search: "", project: "", category: "", status: "" }
     const controls = element("div", { class: "graph-controls" })
@@ -109,7 +119,11 @@ export function graphBrowser(createHelpers) {
     const scope = element(
       "span",
       { class: "graph-scope" },
-      model.scope === "public-content" ? "공개 content · 빌드 시점 기준" : "현재 문서 색인 기준",
+      graphModel.scope === "private-projects"
+        ? "전체 프로젝트 · Vault 원본 기준"
+        : graphModel.scope === "public-content"
+          ? "공개 content · 빌드 시점 기준"
+          : "현재 문서 색인 기준",
     )
     footer.append(count, scope)
     const tooltip = element("div", { class: "graph-node-tooltip", role: "tooltip" })
@@ -158,7 +172,7 @@ export function graphBrowser(createHelpers) {
         ["category", "카테고리"],
         ["status", "상태"],
       ]) {
-        const values = [...new Set(model.nodes.map((node) => node[key]).filter(Boolean))].sort(
+        const values = [...new Set(graphModel.nodes.map((node) => node[key]).filter(Boolean))].sort(
           (a, b) => a.localeCompare(b, "ko"),
         )
         if (!values.length) continue
@@ -370,7 +384,7 @@ export function graphBrowser(createHelpers) {
     function draw() {
       highlight(null)
       world.replaceChildren()
-      const selected = helpers.select(model, currentId, graphDepth, filters)
+      const selected = helpers.select(graphModel, currentId, graphDepth, filters)
       nodes = selected.nodes.map((node, index) => ({
         ...node,
         index,

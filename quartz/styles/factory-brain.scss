@@ -71,6 +71,178 @@
     }
   }
 
+  .fb-dashboard-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .fb-add-button,
+  .fb-primary-button,
+  .fb-secondary-button {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.875rem;
+    border: 1px solid var(--fb-border-strong);
+    border-radius: var(--fb-radius-xs);
+    font: 600 0.8rem var(--bodyFont);
+    cursor: pointer;
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease,
+      color 150ms ease;
+  }
+
+  .fb-add-button,
+  .fb-primary-button {
+    border-color: var(--fb-accent);
+    background: var(--fb-accent);
+    color: var(--fb-surface-raised);
+
+    &:hover {
+      border-color: var(--fb-accent-hover);
+      background: var(--fb-accent-hover);
+    }
+  }
+
+  .fb-secondary-button {
+    background: var(--fb-surface-raised);
+    color: var(--darkgray);
+
+    &:hover {
+      border-color: var(--fb-accent);
+      background: var(--fb-accent-soft);
+      color: var(--fb-accent);
+    }
+  }
+
+  .fb-add-project-dialog {
+    width: min(calc(100% - 2rem), 36rem);
+    max-width: 36rem;
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--fb-border-strong);
+    border-radius: var(--fb-radius-md);
+    background: var(--fb-surface-raised);
+    color: var(--dark);
+    box-shadow: 0 24px 80px rgb(24 45 38 / 24%);
+
+    &::backdrop {
+      background: rgb(17 27 23 / 52%);
+      backdrop-filter: blur(3px);
+    }
+  }
+
+  .fb-add-project-form {
+    display: grid;
+    gap: 1rem;
+    padding: clamp(1.25rem, 4vw, 2rem);
+  }
+
+  .fb-add-project-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+
+    h3 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+    .fb-eyebrow {
+      margin-bottom: 0.35rem;
+    }
+  }
+
+  .fb-dialog-close {
+    width: 2.75rem;
+    height: 2.75rem;
+    flex: 0 0 2.75rem;
+    border: 1px solid var(--fb-border);
+    border-radius: 50%;
+    background: var(--fb-surface-muted);
+    color: var(--darkgray);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--fb-accent);
+      color: var(--fb-accent);
+    }
+  }
+
+  .fb-add-project-copy {
+    color: var(--fb-text-muted);
+    font-size: 0.82rem;
+    line-height: 1.65;
+    word-break: keep-all;
+  }
+
+  .fb-form-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(8rem, 0.55fr);
+    gap: 0.75rem;
+  }
+
+  .fb-form-field {
+    display: grid;
+    gap: 0.4rem;
+    color: var(--darkgray);
+    font-size: 0.78rem;
+    font-weight: 600;
+
+    small {
+      color: var(--fb-text-muted);
+      font-weight: 400;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 2.75rem;
+      padding: 0.6rem 0.7rem;
+      border: 1px solid var(--fb-border-strong);
+      border-radius: var(--fb-radius-xs);
+      background: var(--fb-surface);
+      color: var(--dark);
+      font: 500 0.85rem var(--bodyFont);
+    }
+
+    input::placeholder {
+      color: var(--fb-text-muted);
+      opacity: 0.75;
+    }
+  }
+
+  .fb-add-project-status {
+    padding: 0.7rem 0.8rem;
+    border-left: 2px solid var(--fb-accent);
+    background: var(--fb-accent-soft);
+    color: var(--darkgray);
+    font-size: 0.78rem;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+
+  .fb-add-project-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .fb-add-project-fallback {
+    color: var(--fb-accent);
+    font-size: 0.78rem;
+    text-align: right;
+  }
+
   .fb-kpi-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -293,6 +465,17 @@ html:has(#quartz-body[data-content-scope="public-content"]) body {
 
 @media (max-width: 600px) {
   .factory-brain-dashboard {
+    .fb-dashboard-actions {
+      width: 100%;
+      justify-content: stretch;
+
+      > button {
+        flex: 1 1 0;
+      }
+    }
+    .fb-form-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
     .fb-kpi-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
