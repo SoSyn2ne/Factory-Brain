@@ -177,7 +177,7 @@ function setupPortfolioFocus() {
       미지정: "미지정",
     }
 
-    const selectProject = (button: HTMLButtonElement) => {
+    const selectProject = (button: HTMLButtonElement, showInline = false) => {
       const row = button.closest<HTMLElement>("[data-portfolio-row]")
       if (
         !row ||
@@ -202,6 +202,37 @@ function setupPortfolioFocus() {
       }
       const status = labels[row.dataset.status ?? ""] ?? row.dataset.status ?? "미지정"
       const category = row.dataset.category ?? "미지정"
+      const inline = row.querySelector<HTMLElement>("[data-portfolio-inline-detail]")
+      const inlineTitle = row.querySelector<HTMLElement>("[data-portfolio-inline-title]")
+      const inlineMeta = row.querySelector<HTMLElement>("[data-portfolio-inline-meta]")
+      const inlineRelated = row.querySelector<HTMLElement>("[data-portfolio-inline-related]")
+      for (const candidateRow of rows) {
+        const candidateInline = candidateRow.querySelector<HTMLElement>(
+          "[data-portfolio-inline-detail]",
+        )
+        if (candidateInline) candidateInline.hidden = true
+        candidateRow.dataset.selected = String(candidateRow === row)
+      }
+      if (showInline && inline && inlineTitle && inlineMeta && inlineRelated) {
+        inline.hidden = false
+        inlineTitle.textContent = row.dataset.title ?? "프로젝트"
+        inlineMeta.textContent = `${status} · ${category} · ${Number(row.dataset.connections ?? 0).toLocaleString("ko-KR")}개 연결`
+        inlineRelated.replaceChildren()
+        if (neighbors.length === 0) {
+          const emptyRelated = document.createElement("em")
+          emptyRelated.textContent = "직접 연결된 프로젝트 없음"
+          inlineRelated.append(emptyRelated)
+        } else {
+          for (const neighbor of neighbors) {
+            const link = document.createElement("a")
+            link.className = "internal"
+            link.href = neighbor.href
+            link.textContent = neighbor.title
+            inlineRelated.append(link)
+          }
+        }
+      }
+      detail.dataset.selectedProject = row.dataset.projectId ?? ""
       detailTitle.textContent = row.dataset.title ?? "프로젝트"
       detailPath.textContent = `전체 / ${status} / ${category}`
       detailStatus.textContent = status
@@ -233,7 +264,7 @@ function setupPortfolioFocus() {
     if (defaultButton) selectProject(defaultButton)
 
     for (const button of selectButtons) {
-      button.addEventListener("click", () => selectProject(button))
+      button.addEventListener("click", () => selectProject(button, true))
     }
 
     const apply = () => {

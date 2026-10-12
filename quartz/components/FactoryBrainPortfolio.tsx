@@ -227,6 +227,25 @@ export function FactoryBrainPortfolio({
                 분해해서 보기
               </button>
             </div>
+            <div class="fb-portfolio-inline-detail" data-portfolio-inline-detail hidden>
+              <p class="fb-eyebrow">SELECTED PROJECT</p>
+              <strong data-portfolio-inline-title>{project.title}</strong>
+              <span data-portfolio-inline-meta>
+                {statusLabel(project.status)} · {project.category ?? "미지정"} ·{" "}
+                {number(project.connections)}개 연결
+              </span>
+              <div data-portfolio-inline-related>
+                {project.neighbors.length === 0 ? (
+                  <em>직접 연결된 프로젝트 없음</em>
+                ) : (
+                  project.neighbors.map((neighbor) => (
+                    <a class="internal" href={neighbor.href} key={neighbor.id}>
+                      {neighbor.title}
+                    </a>
+                  ))
+                )}
+              </div>
+            </div>
             <div class="fb-portfolio-bar" aria-hidden="true">
               <span style={{ width: project.connectionWidth }} />
             </div>

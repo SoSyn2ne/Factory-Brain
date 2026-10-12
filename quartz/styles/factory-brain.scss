@@ -896,6 +896,56 @@ html:has(#quartz-body[data-content-scope="public-content"]) body {
   margin-top: 0.55rem;
 }
 
+.fb-portfolio-inline-detail {
+  margin-top: 0.65rem;
+  padding: 0.7rem 0.75rem;
+  border-left: 2px solid var(--fb-accent);
+  background: var(--fb-surface-muted);
+
+  &[hidden] {
+    display: none;
+  }
+
+  .fb-eyebrow {
+    margin-bottom: 0.2rem;
+  }
+
+  strong,
+  > span {
+    display: block;
+  }
+  strong {
+    color: var(--dark);
+    font-family: Georgia, "Noto Serif KR", serif;
+    font-size: 0.98rem;
+    font-weight: 600;
+  }
+  > span {
+    margin-top: 0.15rem;
+    color: var(--fb-text-muted);
+    font-size: 0.72rem;
+  }
+
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.7rem;
+    margin-top: 0.55rem;
+
+    a {
+      color: var(--fb-accent);
+      font-size: 0.74rem;
+      text-decoration: underline;
+      text-decoration-color: var(--fb-border-strong);
+      text-underline-offset: 0.14rem;
+    }
+    em {
+      color: var(--fb-text-muted);
+      font-size: 0.74rem;
+    }
+  }
+}
+
 .fb-portfolio-select {
   min-height: 2rem;
   padding: 0.3rem 0.55rem;
