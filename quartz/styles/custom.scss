@@ -2,62 +2,64 @@
 @use "./factory-brain.scss";
 
 // Factory Brain workspace layer
-// Operations-console chrome around an editorial reading surface.
+// Factory Brain visual system: an editorial workbench around a knowledge base.
 :root {
   color-scheme: light;
-  --light: #fbfcfb;
-  --lightgray: #dfe5e2;
-  --gray: #6f7c78;
-  --darkgray: #3f4946;
-  --dark: #1f2725;
-  --secondary: #276b61;
-  --tertiary: #1f584f;
-  --highlight: rgb(39 107 97 / 11%);
-  --fb-canvas: #f2f5f3;
-  --fb-sidebar: #f6f8f7;
-  --fb-surface: #fbfcfb;
-  --fb-surface-raised: #ffffff;
-  --fb-surface-muted: #f3f6f4;
-  --fb-border: #dfe5e2;
-  --fb-border-strong: #cbd4d0;
-  --fb-text-muted: #65716d;
+  // One quiet, editorial palette. Keep accents semantic instead of inventing
+  // one-off colors in individual components.
+  --light: #fffdf8;
+  --lightgray: #ddd6ca;
+  --gray: #7a746b;
+  --darkgray: #4c4740;
+  --dark: #292621;
+  --secondary: #b5533d;
+  --tertiary: #8f3f2f;
+  --highlight: rgb(181 83 61 / 10%);
+  --fb-canvas: #eee9df;
+  --fb-sidebar: #f5f1e9;
+  --fb-surface: #fffdf8;
+  --fb-surface-raised: #fffdf8;
+  --fb-surface-muted: #f3efe7;
+  --fb-border: #ded7ca;
+  --fb-border-strong: #bdb3a4;
+  --fb-text-muted: #756f66;
   --fb-accent: var(--secondary);
   --fb-accent-hover: var(--tertiary);
-  --fb-accent-soft: rgb(39 107 97 / 10%);
-  --fb-focus: #2f8276;
-  --fb-tooltip-bg: #26312e;
-  --fb-tooltip-text: #f7faf8;
-  --fb-radius-xs: 0.375rem;
-  --fb-radius-sm: 0.625rem;
-  --fb-radius-md: 0.875rem;
-  --fb-shadow-sm: 0 1px 2px rgb(26 40 35 / 4%);
-  --fb-shadow-md: 0 12px 32px rgb(26 40 35 / 8%);
+  --fb-accent-soft: rgb(181 83 61 / 9%);
+  --fb-focus: #c4634b;
+  --fb-tooltip-bg: #292621;
+  --fb-tooltip-text: #fffdf8;
+  --fb-radius-xs: 0.2rem;
+  --fb-radius-sm: 0.35rem;
+  --fb-radius-md: 0.5rem;
+  --fb-shadow-sm: 0 1px 0 rgb(41 38 33 / 6%);
+  --fb-shadow-md: 0 10px 24px rgb(41 38 33 / 10%);
 }
 
 :root[saved-theme="dark"] {
   color-scheme: dark;
-  --light: #191e1c;
-  --lightgray: #303734;
-  --gray: #99a6a1;
-  --darkgray: #d2d9d6;
-  --dark: #f1f5f3;
-  --secondary: #7bc2b6;
-  --tertiary: #9bd5cb;
-  --highlight: rgb(123 194 182 / 14%);
-  --fb-canvas: #121614;
-  --fb-sidebar: #161b19;
-  --fb-surface: #191e1c;
-  --fb-surface-raised: #202622;
-  --fb-surface-muted: #1d2320;
-  --fb-border: #303734;
-  --fb-border-strong: #414a46;
-  --fb-text-muted: #9da8a4;
-  --fb-accent-soft: rgb(123 194 182 / 12%);
-  --fb-focus: #8cd1c5;
-  --fb-tooltip-bg: #edf4f1;
-  --fb-tooltip-text: #18201d;
-  --fb-shadow-sm: 0 1px 2px rgb(0 0 0 / 18%);
-  --fb-shadow-md: 0 14px 36px rgb(0 0 0 / 28%);
+  --light: #1e1b18;
+  --lightgray: #3d3933;
+  --gray: #a69e93;
+  --darkgray: #e0d8cc;
+  --dark: #f6f0e6;
+  --secondary: #d88468;
+  --tertiary: #efaa8e;
+  --highlight: rgb(216 132 104 / 14%);
+  --fb-canvas: #171513;
+  --fb-sidebar: #1d1a17;
+  --fb-surface: #211e1a;
+  --fb-surface-raised: #27231f;
+  --fb-surface-muted: #24201c;
+  --fb-border: #3d3933;
+  --fb-border-strong: #5b5249;
+  --fb-text-muted: #b2a89b;
+  --fb-accent-soft: rgb(216 132 104 / 13%);
+  --fb-focus: #e59b80;
+  --fb-tooltip-bg: #f6f0e6;
+  --fb-tooltip-text: #211e1a;
+  --fb-shadow-sm: 0 1px 0 rgb(0 0 0 / 28%);
+  --fb-shadow-md: 0 14px 32px rgb(0 0 0 / 32%);
 }
 
 html {
@@ -766,8 +768,7 @@ tr {
   height: 100dvh !important;
   margin: 0;
   overflow: hidden;
-  background: rgb(15 22 19 / 64%);
-  backdrop-filter: blur(2px);
+  background: color-mix(in srgb, var(--dark) 64%, transparent);
   overscroll-behavior: contain;
 }
 
@@ -826,8 +827,7 @@ tr {
 .graph > .global-graph-outer {
   width: 100%;
   height: 100dvh;
-  background: rgb(15 22 19 / 64%);
-  backdrop-filter: blur(2px);
+  background: color-mix(in srgb, var(--dark) 64%, transparent);
   overscroll-behavior: contain;
 }
 
@@ -1177,8 +1177,7 @@ tr {
 }
 
 .search > .search-container {
-  background: rgb(15 22 19 / 48%);
-  backdrop-filter: blur(2px);
+  background: color-mix(in srgb, var(--dark) 48%, transparent);
   overscroll-behavior: contain;
 }
 
@@ -1541,33 +1540,15 @@ footer a {
 }
 
 .global-graph-outer.project-galaxy-outer[data-factory-brain-portal] {
-  background:
-    radial-gradient(circle at 50% 42%, rgb(68 117 101 / 16%), transparent 34rem), rgb(8 15 13 / 80%);
+  background: #191815;
 }
 
 .global-graph-outer.project-galaxy-outer[data-factory-brain-portal]::before {
-  position: fixed;
-  z-index: -1;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 16% 22%, rgb(228 244 231 / 68%) 0 1px, transparent 1.5px),
-    radial-gradient(circle at 73% 18%, rgb(228 244 231 / 52%) 0 1px, transparent 1.5px),
-    radial-gradient(circle at 84% 76%, rgb(228 244 231 / 48%) 0 1px, transparent 1.5px),
-    radial-gradient(circle at 28% 82%, rgb(228 244 231 / 42%) 0 1px, transparent 1.5px);
-  background-size:
-    19rem 17rem,
-    23rem 21rem,
-    29rem 25rem,
-    31rem 27rem;
-  content: "";
-  opacity: 0.55;
-  pointer-events: none;
+  display: none;
 }
 
 .global-graph-outer.project-galaxy-outer[data-factory-brain-portal] > .global-graph-container {
-  background:
-    radial-gradient(circle at 50% 45%, rgb(71 130 109 / 12%), transparent 45%),
-    linear-gradient(135deg, rgb(17 29 24 / 98%), rgb(10 18 15 / 98%));
+  background: #191815;
 }
 
 .project-galaxy-outer .factory-graph-svg {
@@ -1575,30 +1556,30 @@ footer a {
 }
 
 .project-galaxy-outer .graph-edge {
-  stroke: rgb(142 196 169 / 62%);
-  stroke-width: 1.8;
+  stroke: #8d877b;
+  stroke-width: 1.4;
 }
 
 .project-galaxy-outer .graph-edge[data-highlighted="true"] {
-  stroke: #a9edc6;
-  filter: drop-shadow(0 0 4px rgb(125 224 166 / 70%));
+  stroke: #d88468;
+  filter: none;
 }
 
 .project-galaxy-outer .graph-node-shape {
-  fill: rgb(20 40 31 / 94%);
-  stroke: #8ad7a6;
-  filter: drop-shadow(0 0 6px rgb(101 215 150 / 28%));
+  fill: #37342f;
+  stroke: #c4bbae;
+  filter: none;
 }
 
 .project-galaxy-outer .graph-node[data-kind="project"] .graph-node-shape {
-  fill: rgb(51 105 76 / 96%);
-  stroke: #c5f6d2;
-  filter: drop-shadow(0 0 10px rgb(114 234 158 / 52%));
+  fill: #b5533d;
+  stroke: #f4d9cc;
+  filter: none;
 }
 
 .project-galaxy-outer .graph-node-label {
-  fill: #ecfff2;
-  stroke: rgb(10 18 15 / 92%);
+  fill: #fff8ef;
+  stroke: #191815;
 }
 
 @media (prefers-reduced-motion: reduce) {

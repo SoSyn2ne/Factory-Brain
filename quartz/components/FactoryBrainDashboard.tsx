@@ -1,6 +1,8 @@
 import { QuartzComponent, QuartzComponentProps } from "./types"
 import { getFactoryBrainModel, FactoryBrainModel } from "../util/factoryBrain"
 import { resolveRelative } from "../util/path"
+import { FactoryBrainSnapshotPanel } from "./FactoryBrainSnapshotPanel"
+import { FactoryBrainPortfolio } from "./FactoryBrainPortfolio"
 
 const number = (value: number) => value.toLocaleString("ko-KR")
 
@@ -275,12 +277,12 @@ export const FactoryBrainDashboard: QuartzComponent = ({
       />
       <div class="fb-dashboard-heading">
         <div>
-          <p class="fb-eyebrow">{isPrivate ? "PROJECT GALAXY" : "PROJECT INTELLIGENCE"}</p>
+          <p class="fb-eyebrow">{isPrivate ? "PROJECT REGISTER" : "PROJECT INDEX"}</p>
           <h2 id="fb-dashboard-title">{isPrivate ? "Project Galaxy" : "공개 프로젝트 현황"}</h2>
           <p class="fb-scope" data-factory-brain-build-scope>
             {isPrivate
-              ? "private-full · Vault 원본 기준 · 빌드 시점 기준"
-              : "공개 content 기준 · 빌드 시점 기준"}
+              ? "Vault 원장 기준 · 마지막 빌드 기준"
+              : "공개 content 기준 · 마지막 빌드 기준"}
           </p>
         </div>
         <div class="fb-dashboard-actions">
@@ -324,6 +326,8 @@ export const FactoryBrainDashboard: QuartzComponent = ({
           </div>
         </div>
       )}
+      {isPrivate && <FactoryBrainPortfolio model={model} currentSlug={currentSlug} />}
+      {isPrivate && <FactoryBrainSnapshotPanel allFiles={allFiles} currentSlug={currentSlug} />}
       <dl class="fb-kpi-grid">
         {statistics.map((stat) => (
           <div class="fb-kpi" key={stat.key}>

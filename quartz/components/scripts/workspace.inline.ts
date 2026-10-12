@@ -149,6 +149,126 @@ function setupAddProjectDialog() {
   })
 }
 
+function setupPortfolioFocus() {
+  for (const root of document.querySelectorAll<HTMLElement>("[data-portfolio-focus]")) {
+    if (root.dataset.bound === "true") continue
+    root.dataset.bound = "true"
+    const filters = [...root.querySelectorAll<HTMLButtonElement>("[data-portfolio-filter]")]
+    const rows = [...root.querySelectorAll<HTMLElement>("[data-portfolio-row]")]
+    const search = root.querySelector<HTMLInputElement>("[data-portfolio-search]")
+    const empty = root.querySelector<HTMLElement>("[data-portfolio-empty]")
+    const count = root.querySelector<HTMLElement>("[data-portfolio-count]")
+    if (!filters.length || !rows.length || !search || !empty || !count) continue
+
+    const detail = root.querySelector<HTMLElement>("[data-portfolio-detail]")
+    const detailTitle = root.querySelector<HTMLElement>("[data-portfolio-detail-title]")
+    const detailPath = root.querySelector<HTMLElement>("[data-portfolio-detail-path]")
+    const detailStatus = root.querySelector<HTMLElement>("[data-portfolio-detail-status]")
+    const detailConnections = root.querySelector<HTMLElement>("[data-portfolio-detail-connections]")
+    const detailDegree = root.querySelector<HTMLElement>("[data-portfolio-detail-degree]")
+    const detailRelated = root.querySelector<HTMLElement>("[data-portfolio-detail-related]")
+    const selectButtons = [...root.querySelectorAll<HTMLButtonElement>("[data-portfolio-select]")]
+    const labels: Record<string, string> = {
+      active: "진행 중",
+      experiment: "실험",
+      reference: "기반",
+      research: "연구",
+      paused: "대기",
+      미지정: "미지정",
+    }
+
+    const selectProject = (button: HTMLButtonElement) => {
+      const row = button.closest<HTMLElement>("[data-portfolio-row]")
+      if (
+        !row ||
+        !detail ||
+        !detailTitle ||
+        !detailPath ||
+        !detailStatus ||
+        !detailConnections ||
+        !detailDegree ||
+        !detailRelated
+      ) {
+        return
+      }
+      let neighbors: Array<{ title: string; href: string }> = []
+      try {
+        neighbors = JSON.parse(row.dataset.neighbors ?? "[]") as Array<{
+          title: string
+          href: string
+        }>
+      } catch {
+        neighbors = []
+      }
+      const status = labels[row.dataset.status ?? ""] ?? row.dataset.status ?? "미지정"
+      const category = row.dataset.category ?? "미지정"
+      detailTitle.textContent = row.dataset.title ?? "프로젝트"
+      detailPath.textContent = `전체 / ${status} / ${category}`
+      detailStatus.textContent = status
+      detailConnections.textContent = `${Number(row.dataset.connections ?? 0).toLocaleString("ko-KR")}개`
+      detailDegree.textContent = `${Number(row.dataset.degree ?? 0).toLocaleString("ko-KR")}개`
+      detailRelated.replaceChildren()
+      if (neighbors.length === 0) {
+        const emptyRelated = document.createElement("em")
+        emptyRelated.textContent = "직접 연결된 프로젝트 없음"
+        detailRelated.append(emptyRelated)
+      } else {
+        for (const neighbor of neighbors) {
+          const link = document.createElement("a")
+          link.className = "internal"
+          link.href = neighbor.href
+          link.textContent = neighbor.title
+          detailRelated.append(link)
+        }
+      }
+      for (const candidate of selectButtons) {
+        candidate.setAttribute("aria-pressed", String(candidate === button))
+      }
+    }
+
+    const defaultProject = root.dataset.defaultProject
+    const defaultButton =
+      selectButtons.find((button) => button.dataset.projectId === defaultProject) ??
+      selectButtons[0]
+    if (defaultButton) selectProject(defaultButton)
+
+    for (const button of selectButtons) {
+      button.addEventListener("click", () => selectProject(button))
+    }
+
+    const apply = () => {
+      const activeFilter = root.dataset.activeFilter ?? "all"
+      const query = search.value.trim().toLocaleLowerCase()
+      let visible = 0
+      for (const row of rows) {
+        const matchesStatus = activeFilter === "all" || row.dataset.status === activeFilter
+        const matchesSearch = !query || (row.dataset.search ?? "").includes(query)
+        const isVisible = matchesStatus && matchesSearch
+        row.hidden = !isVisible
+        if (isVisible) visible += 1
+      }
+      empty.hidden = visible > 0
+      count.textContent = `${visible.toLocaleString("ko-KR")}개 표시`
+      root.dataset.visibleCount = String(visible)
+      for (const filter of filters) {
+        filter.setAttribute(
+          "aria-selected",
+          String(filter.dataset.portfolioFilter === activeFilter),
+        )
+      }
+    }
+
+    for (const filter of filters) {
+      filter.addEventListener("click", () => {
+        root.dataset.activeFilter = filter.dataset.portfolioFilter ?? "all"
+        apply()
+      })
+    }
+    search.addEventListener("input", apply)
+    apply()
+  }
+}
+
 function makeGraphDialogHeader(overlay: HTMLElement, index: number) {
   const header = document.createElement("div")
   const title = document.createElement("strong")
@@ -245,6 +365,7 @@ function refreshWorkspaceUi() {
   syncActiveNavigation()
   syncExplorerState()
   setupAddProjectDialog()
+  setupPortfolioFocus()
   syncGraphDialogs()
 }
 
