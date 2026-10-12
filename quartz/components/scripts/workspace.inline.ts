@@ -253,7 +253,9 @@ function setupPortfolioFocus() {
         }
       }
       for (const candidate of selectButtons) {
-        candidate.setAttribute("aria-pressed", String(candidate === button))
+        const isSelected = candidate === button
+        candidate.setAttribute("aria-pressed", String(isSelected))
+        candidate.textContent = showInline && isSelected ? "닫기" : "상세 보기"
       }
     }
 
@@ -264,7 +266,18 @@ function setupPortfolioFocus() {
     if (defaultButton) selectProject(defaultButton)
 
     for (const button of selectButtons) {
-      button.addEventListener("click", () => selectProject(button, true))
+      button.addEventListener("click", () => {
+        const row = button.closest<HTMLElement>("[data-portfolio-row]")
+        const inline = row?.querySelector<HTMLElement>("[data-portfolio-inline-detail]")
+        if (button.getAttribute("aria-pressed") === "true" && inline && !inline.hidden) {
+          inline.hidden = true
+          if (row) row.dataset.selected = "false"
+          button.setAttribute("aria-pressed", "false")
+          button.textContent = "상세 보기"
+          return
+        }
+        selectProject(button, true)
+      })
     }
 
     const apply = () => {
