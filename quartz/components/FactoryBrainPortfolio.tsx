@@ -224,7 +224,7 @@ export function FactoryBrainPortfolio({
                 data-project-id={project.id}
                 aria-pressed={project.id === mostConnected?.id}
               >
-                분해해서 보기
+                상세 보기
               </button>
             </div>
             <div class="fb-portfolio-inline-detail" data-portfolio-inline-detail hidden>
