@@ -144,10 +144,10 @@ export function FactoryBrainRestartDesk({
 
       <div class="fb-restart-toolbar">
         <div class="fb-restart-filters" role="tablist" aria-label="재시작 기록 필터">
-          <button type="button" role="tab" aria-selected="true" data-restart-filter="all">
+          <button type="button" role="tab" aria-selected="false" data-restart-filter="all">
             전체 <span>{number(projects.length)}</span>
           </button>
-          <button type="button" role="tab" aria-selected="false" data-restart-filter="ready">
+          <button type="button" role="tab" aria-selected="true" data-restart-filter="ready">
             다음 행동 있음 <span>{number(readyProjects.length)}</span>
           </button>
           <button type="button" role="tab" aria-selected="false" data-restart-filter="missing">

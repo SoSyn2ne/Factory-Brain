@@ -173,7 +173,7 @@ function setupRestartDesk() {
     if (!filters.length || !rows.length || !search || !empty || !count) continue
 
     const apply = () => {
-      const activeFilter = root.dataset.activeRestartFilter ?? "all"
+      const activeFilter = root.dataset.activeRestartFilter ?? "ready"
       const query = search.value.trim().toLocaleLowerCase()
       let visible = 0
       for (const row of rows) {
