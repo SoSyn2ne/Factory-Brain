@@ -3,6 +3,7 @@ import { getFactoryBrainModel, FactoryBrainModel } from "../util/factoryBrain"
 import { resolveRelative } from "../util/path"
 import { FactoryBrainSnapshotPanel } from "./FactoryBrainSnapshotPanel"
 import { FactoryBrainPortfolio } from "./FactoryBrainPortfolio"
+import { FactoryBrainRestartDesk } from "./FactoryBrainRestartDesk"
 
 const number = (value: number) => value.toLocaleString("ko-KR")
 
@@ -325,6 +326,9 @@ export const FactoryBrainDashboard: QuartzComponent = ({
             <div class="global-graph-container" data-cfg="{}" />
           </div>
         </div>
+      )}
+      {isPrivate && (
+        <FactoryBrainRestartDesk allFiles={allFiles} currentSlug={currentSlug} model={model} />
       )}
       {isPrivate && <FactoryBrainPortfolio model={model} currentSlug={currentSlug} />}
       {isPrivate && <FactoryBrainSnapshotPanel allFiles={allFiles} currentSlug={currentSlug} />}

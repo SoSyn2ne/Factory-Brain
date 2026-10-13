@@ -37,6 +37,9 @@ function fixture() {
         workspaceProject: "/private/workspace",
         sourceRegistry: "/private/registry.json",
         path: "10-projects/sample-one/INDEX.md",
+        lastDecision: "Keep the local snapshot as the source of truth" as string | null,
+        runCommand: "npm run verify:project-snapshot" as string | null,
+        unresolved: "Need a user-facing re-entry flow" as string | null,
         nextAction: "Verify the synthetic build" as string | null,
         relatedLinks: ["Synthetic reference"],
       },
@@ -87,6 +90,9 @@ describe("decodeFactoryBrainSnapshot", () => {
       projectDirectory: "10-projects",
       mode: "read-only-index-scan",
     })
+    assert.equal(result.projects[0].lastDecision, "Keep the local snapshot as the source of truth")
+    assert.equal(result.projects[0].runCommand, "npm run verify:project-snapshot")
+    assert.equal(result.projects[0].unresolved, "Need a user-facing re-entry flow")
     assert.equal(result.projects[0].nextAction, "Verify the synthetic build")
     assert.equal(result.warnings[2].projectId, "sample-without-index")
     assert.equal(JSON.stringify(result).includes("/private/"), false)

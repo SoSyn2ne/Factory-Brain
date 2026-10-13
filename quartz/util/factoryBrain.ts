@@ -112,7 +112,9 @@ export function hasPrivateFactoryBrainScope(allFiles: readonly QuartzPluginData[
 
 function documentTitle(file: SourceFile): string {
   const title = file.frontmatter?.title?.trim()
-  if (title && !/^index$/i.test(title)) return title
+  if (title && !/^index$/i.test(title)) {
+    return title.replace(/\s+index$/i, "").trim() || title
+  }
   const segments = file.slug.split("/")
   if (/^index$/i.test(segments.at(-1) ?? "")) segments.pop()
   return (segments.at(-1) ?? file.slug).replace(/-/g, " ")

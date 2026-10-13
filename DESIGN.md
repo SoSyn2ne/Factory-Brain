@@ -2,6 +2,17 @@
 
 Factory Brain is a private project notebook, not an AI control-room mockup. The interface should feel edited, lived-in, and useful before it feels impressive.
 
+## Product hierarchy
+
+Factory Brain is a project workbench around a knowledge base. The first screen should support re-entry, not just display totals:
+
+- **Restart Desk:** “어디서 다시 시작하지?” — the four records needed to resume a project.
+- **Portfolio View:** “무엇을 볼까?” — choose and compare projects.
+- **Project Galaxy:** “무엇과 연결돼 있지?” — explore relationships.
+- **Project Ledger:** “원본에 무엇이 기록돼 있지?” — inspect the Vault snapshot.
+
+The Restart Desk may show missing records honestly. A missing field is an invitation to update the INDEX in Obsidian, never a cue to invent a summary.
+
 ## Direction
 
 - **Editorial workbench:** warm paper surfaces, ink text, thin rules, compact metadata, and deliberate whitespace.

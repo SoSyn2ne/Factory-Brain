@@ -48,6 +48,15 @@ The panel reads collector schema v1 through `FACTORY_BRAIN_PROJECT_SNAPSHOT` on 
 
 This is a collection/build-time view, not a polling service. Refresh the collector through the loop engine, then rebuild the private preview. Updating `latest.json` alone does not refresh rendered HTML. Missing/unreadable snapshots show `데이터 없음`; malformed or inconsistent snapshots show an invalid-data message. A valid empty scan shows zero projects. No graph or placeholder data fills these states.
 
+The private Restart Desk reads optional project INDEX sections or frontmatter fields:
+
+- `## 마지막 결정` / `last_decision`
+- `## 실행 방법` / `run_command`
+- `## 미해결` / `unresolved`
+- `## 다음 행동` / `next_action`
+
+These fields are read-only in the web surface. Use the project page or `obsidian://open` link to update the INDEX, then run the collector and rebuild. Missing fields remain visible as `아직 기록 없음`.
+
 From the workspace root, first run the Project Snapshot commands above. Then build into a local ignored directory, leaving the existing service and its output alone:
 
 ```bash

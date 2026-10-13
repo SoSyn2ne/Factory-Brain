@@ -4,6 +4,16 @@
 
 Factory Brain Web is the visual layer of Agent OS. It reads the private Obsidian Factory Brain vault and presents truthful project, graph, and operations state without replacing the vault or inventing status.
 
+## Product role
+
+Factory Brain is the user's persistent project workbench, not a report that is only opened for inspection. The home view should answer three questions in order:
+
+1. **Where can I re-enter?** — Restart Desk shows the next project and the four restart records.
+2. **What should I inspect next?** — Portfolio View filters the project register and exposes inline detail.
+3. **How are projects connected?** — Project Galaxy is reserved for relationship exploration.
+
+A project INDEX is the operational record. The web view is a read-only, searchable, decision-oriented projection of that record, with direct links back to the note and Obsidian for updates.
+
 ## Canonical Sources
 
 - Private memory and project records: `/home/sy/Obsidian/Factory-Brain`

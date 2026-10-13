@@ -130,7 +130,19 @@ function setupAddProjectDialog() {
       "",
       `# ${name}`,
       "",
-      "## Next action",
+      "## 마지막 결정",
+      "",
+      "- ",
+      "",
+      "## 실행 방법",
+      "",
+      "- ",
+      "",
+      "## 미해결",
+      "",
+      "- 없음",
+      "",
+      "## 다음 행동",
       "",
       "- ",
       "",
@@ -147,6 +159,50 @@ function setupAddProjectDialog() {
     status.hidden = false
     window.location.href = uri
   })
+}
+
+function setupRestartDesk() {
+  for (const root of document.querySelectorAll<HTMLElement>("[data-restart-desk]")) {
+    if (root.dataset.bound === "true") continue
+    root.dataset.bound = "true"
+    const filters = [...root.querySelectorAll<HTMLButtonElement>("[data-restart-filter]")]
+    const rows = [...root.querySelectorAll<HTMLElement>("[data-restart-row]")]
+    const search = root.querySelector<HTMLInputElement>("[data-restart-search]")
+    const empty = root.querySelector<HTMLElement>("[data-restart-empty]")
+    const count = root.querySelector<HTMLElement>("[data-restart-count]")
+    if (!filters.length || !rows.length || !search || !empty || !count) continue
+
+    const apply = () => {
+      const activeFilter = root.dataset.activeRestartFilter ?? "all"
+      const query = search.value.trim().toLocaleLowerCase()
+      let visible = 0
+      for (const row of rows) {
+        const matchesFilter =
+          activeFilter === "all" ||
+          (activeFilter === "ready" && row.dataset.restartReady === "true") ||
+          (activeFilter === "missing" && row.dataset.restartComplete !== "true")
+        const matchesSearch = !query || (row.dataset.restartSearchValue ?? "").includes(query)
+        const isVisible = matchesFilter && matchesSearch
+        row.hidden = !isVisible
+        if (isVisible) visible += 1
+      }
+      empty.hidden = visible > 0
+      count.textContent = `${visible.toLocaleString("ko-KR")}개 표시`
+      root.dataset.visibleCount = String(visible)
+      for (const filter of filters) {
+        filter.setAttribute("aria-selected", String(filter.dataset.restartFilter === activeFilter))
+      }
+    }
+
+    for (const filter of filters) {
+      filter.addEventListener("click", () => {
+        root.dataset.activeRestartFilter = filter.dataset.restartFilter ?? "all"
+        apply()
+      })
+    }
+    search.addEventListener("input", apply)
+    apply()
+  }
 }
 
 function setupPortfolioFocus() {
@@ -409,6 +465,7 @@ function refreshWorkspaceUi() {
   syncActiveNavigation()
   syncExplorerState()
   setupAddProjectDialog()
+  setupRestartDesk()
   setupPortfolioFocus()
   syncGraphDialogs()
 }

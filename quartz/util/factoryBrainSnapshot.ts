@@ -9,6 +9,9 @@ export interface FactoryBrainSnapshotProject {
   status: string
   category: string
   path: string
+  lastDecision: string | null
+  runCommand: string | null
+  unresolved: string | null
   nextAction: string | null
   relatedLinks: string[]
 }
@@ -118,6 +121,9 @@ export function decodeFactoryBrainSnapshot(value: unknown): FactoryBrainSnapshot
       !nullableText(project.status) ||
       !nullableText(project.category) ||
       !safeRelativePath(project.path) ||
+      (project.lastDecision !== undefined && !nullableText(project.lastDecision)) ||
+      (project.runCommand !== undefined && !nullableText(project.runCommand)) ||
+      (project.unresolved !== undefined && !nullableText(project.unresolved)) ||
       !nullableText(project.nextAction) ||
       !Array.isArray(project.relatedLinks) ||
       !project.relatedLinks.every(nonempty)
@@ -142,6 +148,9 @@ export function decodeFactoryBrainSnapshot(value: unknown): FactoryBrainSnapshot
       status: project.status?.trim() || "미지정",
       category: project.category?.trim() || "미지정",
       path: project.path,
+      lastDecision: project.lastDecision?.trim() || null,
+      runCommand: project.runCommand?.trim() || null,
+      unresolved: project.unresolved?.trim() || null,
       nextAction: project.nextAction?.trim() || null,
       relatedLinks: [...project.relatedLinks],
     })
