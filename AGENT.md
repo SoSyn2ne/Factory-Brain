@@ -14,6 +14,19 @@ Factory Brain is the user's persistent project workbench, not a report that is o
 
 A project INDEX is the operational record. The web view is a read-only, searchable, decision-oriented projection of that record, with direct links back to the note and Obsidian for updates.
 
+## Interaction architecture
+
+The Notion public-client static analysis is a reference input, not an implementation target. Preserve these boundaries:
+
+- display model = parsed Vault/snapshot state;
+- commands = explicit project navigation, graph, filter, and Obsidian actions;
+- storage = Obsidian INDEX, until a reviewed web write path exists;
+- keyboard handling must respect active surface, focus, modal state, and priority;
+- future editor content must be separated from toolbar/embed/chrome UI;
+- never treat static bundle findings as runtime or server guarantees.
+
+The durable evidence and limits are recorded in `Factory-Brain/40-session-logs/2026-10-14-notion-public-client-static-analysis.md`.
+
 ## Canonical Sources
 
 - Private memory and project records: `/home/sy/Obsidian/Factory-Brain`
