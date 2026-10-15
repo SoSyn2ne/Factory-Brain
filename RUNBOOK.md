@@ -10,13 +10,22 @@
 
 ## Project Snapshot
 
-From the workspace root:
+From the workspace root, the persistent watcher normally keeps this current automatically:
+
+```bash
+systemctl --user status factory-brain-private.service factory-brain-vault-sync.service
+cat state/factory-brain-sync/status.json
+```
+
+Manual recovery or verification:
 
 ```bash
 node scripts/factory-brain-project-snapshot.mjs
 node scripts/factory-loop-engine.mjs run factory-brain-project-snapshot
 node scripts/factory-loop-engine.mjs status --json
 ```
+
+The watcher at `scripts/factory-brain-vault-watcher.mjs` watches the private Vault's project INDEX files, debounces saves, runs the collector, and touches the private Quartz root note so the existing `--serve` process rebuilds without exposing the Vault or restarting port 8090. A 60-second reconciliation catches missed filesystem events. The collector and private runtime are separate user services so a Quartz restart does not lose the sync loop.
 
 Optional overrides:
 

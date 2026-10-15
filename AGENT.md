@@ -32,6 +32,8 @@ The durable evidence and limits are recorded in `Factory-Brain/40-session-logs/2
 - Private memory and project records: `/home/sy/Obsidian/Factory-Brain`
 - Loop registry and evidence: `/home/sy/.openclaw/workspace/state/factory-loop-engine/`
 - Local collector: `/home/sy/.openclaw/workspace/scripts/factory-brain-project-snapshot.mjs`
+- Persistent Vault watcher: `/home/sy/.openclaw/workspace/scripts/factory-brain-vault-watcher.mjs`
+- Private runtime services: `factory-brain-private.service` and `factory-brain-vault-sync.service`
 - This repository: Quartz/Preact web presentation and public-content boundary
 
 ## Non-negotiables
@@ -46,7 +48,7 @@ The durable evidence and limits are recorded in `Factory-Brain/40-session-logs/2
 
 ## Current Vertical Slice
 
-`factory-brain-project-snapshot` reads `10-projects/*/INDEX.md` and writes a normalized local JSON snapshot for downstream dashboards. The vault is read-only input; the snapshot is evidence, not a second source of truth.
+`factory-brain-project-snapshot` reads `10-projects/*/INDEX.md` and writes a normalized local JSON snapshot for downstream dashboards. The vault is read-only input; the snapshot is evidence, not a second source of truth. `factory-brain-vault-watcher.mjs` runs that collector after debounced INDEX changes and on a 60-second reconciliation, then triggers the existing private Quartz watcher through a private root-note timestamp update.
 
 ## Stack
 

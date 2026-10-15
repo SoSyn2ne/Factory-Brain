@@ -11,6 +11,13 @@ node scripts/factory-loop-engine.mjs run factory-brain-project-snapshot
 node scripts/factory-loop-engine.mjs status --json
 ```
 
+The persistent sync path must satisfy:
+
+- `factory-brain-private.service` is active and has `FACTORY_BRAIN_PROJECT_SNAPSHOT` set.
+- `factory-brain-vault-sync.service` is active and `state/factory-brain-sync/status.json` is `ready`.
+- Saving a project INDEX causes one debounced collector run and a private Quartz rebuild trigger; port 8090 remains bound.
+- A failed collector preserves the previous snapshot and retries without mutating the Vault.
+
 The snapshot must satisfy:
 
 - `schemaVersion` is `1`.
